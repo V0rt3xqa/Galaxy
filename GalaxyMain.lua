@@ -580,9 +580,9 @@ end
 
 local priolist = {
 	["DEFAULT"] = 0,
-	["Galaxy PRIVATE"] = 1,
-	["Galaxy DEVELOPER"] = 2,
-	["Galaxy OWNER"] = 3
+	["GALAXY PRIVATE"] = 1,
+	["GALAXY DEVELOPER"] = 2,
+	["GALAXY OWNER"] = 3
 }
 local function GetURL(scripturl)
 	if shared.VapeDeveloper then
