@@ -1212,47 +1212,49 @@ local function findplayers(arg, plr)
 	return temp
 end
 chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent:Connect(function(tab, channel)
-	if tab.MessageType ~= "Whisper" then return end
+	if tab.MessageType ~= "Whisper" then do_ = false  end
 	local plr = game.Players:FindFirstChild(tab["FromSpeaker"])
 	local args = tab.Message:split(" ")
 	local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
-	if plr and Functions.CheckPlayerType(lplr) ~= "DEFAULT" and tab.MessageType == "Whisper" and client ~= nil and alreadysaidlist[plr.Name] == nil then
-		alreadysaidlist[plr.Name] = true
-		local playerlist = game:GetService("CoreGui"):FindFirstChild("PlayerList")
-		if playerlist then
-			pcall(function()
-				local playerlistplayers = playerlist.PlayerListMaster.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
-				local targetedplr = playerlistplayers:FindFirstChild("p_"..plr.UserId)
-				if targetedplr then 
-					targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("vape/assets/VapeIcon.png")
-				end
-			end)
-		end
-		task.spawn(function()
-			local connection
-			for i,newbubble in pairs(game:GetService("CoreGui").BubbleChat:GetDescendants()) do
-				if newbubble:IsA("TextLabel") and newbubble.Text:find(clients.ChatStrings2[client]) then
-					newbubble.Parent.Parent.Visible = false
-					repeat task.wait() until newbubble:IsDescendantOf(nil)
-					if connection then
-						connection:Disconnect()
+	if do_ == nil then
+		if plr and Functions.CheckPlayerType(lplr) ~= "DEFAULT" and tab.MessageType == "Whisper" and client ~= nil and alreadysaidlist[plr.Name] == nil and do_ == nil then
+			alreadysaidlist[plr.Name] = true
+			local playerlist = game:GetService("CoreGui"):FindFirstChild("PlayerList")
+			if playerlist then
+				pcall(function()
+					local playerlistplayers = playerlist.PlayerListMaster.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
+					local targetedplr = playerlistplayers:FindFirstChild("p_"..plr.UserId)
+					if targetedplr then 
+						targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("vape/assets/VapeIcon.png")
 					end
-				end
+				end)
 			end
-			connection = game:GetService("CoreGui").BubbleChat.DescendantAdded:Connect(function(newbubble)
-				if newbubble:IsA("TextLabel") and newbubble.Text:find(clients.ChatStrings2[client]) then
-					newbubble.Parent.Parent.Visible = false
-					repeat task.wait() until newbubble:IsDescendantOf(nil)
-					if connection then
-						connection:Disconnect()
+			task.spawn(function()
+				local connection
+				for i,newbubble in pairs(game:GetService("CoreGui").BubbleChat:GetDescendants()) do
+					if newbubble:IsA("TextLabel") and newbubble.Text:find(clients.ChatStrings2[client]) then
+						newbubble.Parent.Parent.Visible = false
+						repeat task.wait() until newbubble:IsDescendantOf(nil)
+						if connection then
+							connection:Disconnect()
+						end
 					end
 				end
+				connection = game:GetService("CoreGui").BubbleChat.DescendantAdded:Connect(function(newbubble)
+					if newbubble:IsA("TextLabel") and newbubble.Text:find(clients.ChatStrings2[client]) then
+						newbubble.Parent.Parent.Visible = false
+						repeat task.wait() until newbubble:IsDescendantOf(nil)
+						if connection then
+							connection:Disconnect()
+						end
+					end
+				end)
 			end)
-		end)
-		createwarning("Galaxy", plr.Name.." is using "..client.."!", 60)
-		clients.ClientUsers[plr.Name] = client:upper()..' USER'
-		local ind, newent = entity.getEntityFromPlayer(plr)
-		if newent then entity.entityUpdatedEvent:Fire(newent) end
+			createwarning("Galaxy", plr.Name.." is using "..client.."!", 60)
+			clients.ClientUsers[plr.Name] = client:upper()..' USER'
+			local ind, newent = entity.getEntityFromPlayer(plr)
+			if newent then entity.entityUpdatedEvent:Fire(newent) end
+		end
 	end
 	if priolist[Functions.CheckPlayerType(lplr)] > 0 and plr == lplr then
 		if tab.Message:len() >= 5 and tab.Message:sub(1, 5):lower() == ";cmds" then
