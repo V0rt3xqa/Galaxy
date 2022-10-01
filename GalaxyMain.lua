@@ -681,7 +681,7 @@ local Functions = {
 				color = v
 			end
 		end
-		for i,v in pairs(tags.owners) do
+		for i,v in pairs(tags.owner) do
 			if i == shalib.sha512(tostring(plr.Name..plr.UserId)) then
 				type = "Galaxy Owner"
 				color = v
