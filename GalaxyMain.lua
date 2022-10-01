@@ -26,6 +26,7 @@ local CreateFunction = function(items)
 end
 
 loaded = true
+--[[
 local images = {
 	"AddItem","AddRemoveIcon1","ArrowIndicator","BackIcon","BindBackground","BlatantIcon","CircleListBlacklist","ColorSlider1","ColorSlider2","CombatIcon","DiscordIcon",
 	"DownArrow","ExitIcon1","FriendsIcon","HoverArrow","HoverArrow3","HoverArrow4","InfoNotification","KeybindIcon","MoreButton1","MoreButton2","MoreButton3",
@@ -168,7 +169,7 @@ checkifupdated(fileversion)
 for i,v in pairs(images) do
 	checkiffile("vape/assets/"..v..".png")
 end
-
+--]]
 if shared.GalaxyLoaded then
 	error("Galaxy already loaded")
 end
@@ -593,62 +594,10 @@ local function GetURL(scripturl)
 	end
 end
 local shalib = loadstring(GetURL("Libraries/sha.lua"))()
-for i,v in pairs(getconnections(game.ReplicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
-	if v.Function and #debug.getupvalues(v.Function) > 0 and type(debug.getupvalues(v.Function)[1]) == "table" and getmetatable(debug.getupvalues(v.Function)[1]) and getmetatable(debug.getupvalues(v.Function)[1]).GetChannel then
-		oldchanneltab = getmetatable(debug.getupvalues(v.Function)[1])
-		oldchannelfunc = getmetatable(debug.getupvalues(v.Function)[1]).GetChannel
-		getmetatable(debug.getupvalues(v.Function)[1]).GetChannel = function(Self, Name)
-			local tab = oldchannelfunc(Self,Name)
-			if tab then
-				local addmessage = tab.AddMessageToChannel
-				if oldchanneltabs[tab] == nil then
-					oldchanneltabs[tab] = tab.AddMessageToChannel
-				end
-				tab.AddMessageToChannel = function(Self2, MessageData)
-					if MessageData.FromSpeaker and game.Players[MessageData.FromSpeaker] then
-						for i,v in pairs(tags) do
-							pcall(function()
-								local plr = game.Players[MessageData.FromSpeaker]
-								local str = tostring(plr.Name..plr.UserId)
-								local storedsha = shalib.sha512(tostring(str))
-								if i == storedsha then
-									MessageData.ExtraData = {
-										NameColor = game.Players[MessageData.FromSpeaker].Team == nil and Color3.new(0, 1, 1) or game.Players[MessageData.FromSpeaker].TeamColor.Color,
-										Tags = {
-											table.unpack(MessageData.ExtraData.Tags),
-											{
-												TagColor = v[2],
-												TagText = v[1]
-											}
-										}
-									}
-								end
-							end)
-						end
-					end
-					pcall(function()
-						return addmessage(Self2, MessageData)
-					end)
-				end
-			end
-			return tab
-		end
-	end
-end
 
 local a=syn and syn.queue_on_teleport or queue_on_teleport or fluxus and fluxus.queue_on_teleport or function()end
 game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(b)
 	if b==Enum.TeleportState.Started then a("pcall(function() shared.GalaxyLoaded = false end)") end end)
-
-game.ReplicatedStorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent:Wait()
-task.wait(0.2)
-if getconnections then
-	for i,v in pairs(getconnections(game.ReplicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
-		if v.Function and #debug.getupvalues(v.Function) > 0 and type(debug.getupvalues(v.Function)[1]) == "table" and getmetatable(debug.getupvalues(v.Function)[1]) and getmetatable(debug.getupvalues(v.Function)[1]).GetChannel then
-			debug.getupvalues(v.Function)[1]:SwitchCurrentChannel("All")
-		end
-	end
-end
 
 shared.GalaxyLoaded = true
 
@@ -718,14 +667,82 @@ end
 local Functions = {
 	CheckPlayerType = function(plr)
 		local type = "DEFAULT"
-		for i,v in pairs(tags) do
+		local color = Color3.new()
+		for i,v in pairs(tags.private) do
 			if i == shalib.sha512(tostring(plr.Name..plr.UserId)) then
-				type = string.upper(v[1])
+				type = "Galaxy Private"
+				color = v
 			end
 		end
-		return type
+		for i,v in pairs(tags.developer) do
+			if i == shalib.sha512(tostring(plr.Name..plr.UserId)) then
+				type = "Galaxy Developer"
+				color = v
+			end
+		end
+		for i,v in pairs(tags.owners) do
+			if i == shalib.sha512(tostring(plr.Name..plr.UserId)) then
+				type = "Galaxy Owner"
+				color = v
+			end
+		end
+		if not color then
+			color = Color3.new()
+		end
+		return type,color
 	end
 }
+
+for i,v in pairs(getconnections(game.ReplicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
+	if v.Function and #debug.getupvalues(v.Function) > 0 and type(debug.getupvalues(v.Function)[1]) == "table" and getmetatable(debug.getupvalues(v.Function)[1]) and getmetatable(debug.getupvalues(v.Function)[1]).GetChannel then
+		oldchanneltab = getmetatable(debug.getupvalues(v.Function)[1])
+		oldchannelfunc = getmetatable(debug.getupvalues(v.Function)[1]).GetChannel
+		getmetatable(debug.getupvalues(v.Function)[1]).GetChannel = function(Self, Name)
+			local tab = oldchannelfunc(Self,Name)
+			if tab then
+				local addmessage = tab.AddMessageToChannel
+				if oldchanneltabs[tab] == nil then
+					oldchanneltabs[tab] = tab.AddMessageToChannel
+				end
+				tab.AddMessageToChannel = function(Self2, MessageData)
+					if MessageData.FromSpeaker and game.Players[MessageData.FromSpeaker] then
+						pcall(function()
+							local plr = game.Players[MessageData.FromSpeaker]
+							local str = tostring(plr.Name..plr.UserId)
+							if Functions.CheckPlayerType then
+								local tagtext,color = Functions.CheckPlayerType(plr)
+								MessageData.ExtraData = {
+									NameColor = game.Players[MessageData.FromSpeaker].Team == nil and Color3.new(0, 1, 1) or game.Players[MessageData.FromSpeaker].TeamColor.Color,
+									Tags = {
+										table.unpack(MessageData.ExtraData.Tags),
+										{
+											TagColor = color,
+											TagText = tagtext,
+										}
+									}
+								}
+							end
+						end)
+					end
+					pcall(function()
+						return addmessage(Self2, MessageData)
+					end)
+				end
+			end
+			return tab
+		end
+	end
+end
+game.ReplicatedStorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent:Wait()
+task.wait(0.2)
+if getconnections then
+	for i,v in pairs(getconnections(game.ReplicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
+		if v.Function and #debug.getupvalues(v.Function) > 0 and type(debug.getupvalues(v.Function)[1]) == "table" and getmetatable(debug.getupvalues(v.Function)[1]) and getmetatable(debug.getupvalues(v.Function)[1]).GetChannel then
+			debug.getupvalues(v.Function)[1]:SwitchCurrentChannel("All")
+		end
+	end
+end
+
 local alreadysaidlist = {}
 local entity = shared.vapeentity
 local Client = require(repstorage.TS.remotes).default.Client
