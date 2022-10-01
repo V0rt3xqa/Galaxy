@@ -711,6 +711,7 @@ Functions["IsSpecialIngame"] = function ()
 	if type == nil then
 		type = "DEFAULT"
 	end
+	print(type,"DOING")
 	return type
 end
 game.Players.PlayerAdded:Connect(function()
