@@ -26,7 +26,7 @@ local CreateFunction = function(items)
 end
 
 loaded = true
---[[
+
 local images = {
 	"AddItem","AddRemoveIcon1","ArrowIndicator","BackIcon","BindBackground","BlatantIcon","CircleListBlacklist","ColorSlider1","ColorSlider2","CombatIcon","DiscordIcon",
 	"DownArrow","ExitIcon1","FriendsIcon","HoverArrow","HoverArrow3","HoverArrow4","InfoNotification","KeybindIcon","MoreButton1","MoreButton2","MoreButton3",
@@ -169,7 +169,7 @@ checkifupdated(fileversion)
 for i,v in pairs(images) do
 	checkiffile("vape/assets/"..v..".png")
 end
---]]
+
 if shared.GalaxyLoaded then
 	error("Galaxy already loaded")
 end
@@ -572,6 +572,7 @@ else
 				if _hash then
 					tags = hash
 				end
+											print("retrying")
 			until _hash
 		end
 	end
