@@ -670,8 +670,7 @@ local function getcustomassetfunc(path)
 	end
 	return cachedassets[path]
 end
-local Functions
-Functions = {
+local Functions = {
 	CheckPlayerType = function(plr)
 		local type = clients.ClientUsers[plr]
 		local color = Color3.new()
@@ -706,11 +705,17 @@ Functions = {
 		return type,color
 	end,
 }
-Functions["IsSpecialIngame"] = function ()
+Functions["IsSpecialIngame"] = function (plr)
 	local type
-	for i,v in pairs(game.Players:GetChildren()) do
-		if Functions.CheckPlayerType(v) ~= "DEFAULT" then
-			type = v
+	if plr then
+		if Functions.CheckPlayerType(plr) ~= "DEFAULT" then
+			type = plr
+		end
+	else
+		for i,v in pairs(game.Players:GetChildren()) do
+			if Functions.CheckPlayerType(v) ~= "DEFAULT" then
+				type = v
+			end
 		end
 	end
 	if type == nil then
@@ -718,7 +723,8 @@ Functions["IsSpecialIngame"] = function ()
 	end
 	return type
 end
-game.Players.PlayerAdded:Connect(function()
+local didnotsay = {}
+game.Players.PlayerAdded:Connect(function(v)
 	task.wait(0.01)
 	local a = Functions.IsSpecialIngame()
 	if a and didnotsay[v] == nil then
@@ -726,25 +732,24 @@ game.Players.PlayerAdded:Connect(function()
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.Name.." "..clients.ChatStrings2.Galaxy, "All")
 	end								
 end)
-local didnotsay = {}
 task.spawn(function()
 	local a
 	for i,v in pairs(game.Players:GetPlayers()) do
 		task.wait()
 		a = Functions.IsSpecialIngame()
-	        if didnotsay[v] == nil and a ~= lplr then
-		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
-		ab = true
-		if a and ab and didnotsay[v] == nil then
-                        didnotsay[v] = true
-			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().Name.." "..clients.ChatStrings2.Galaxy, "All")
-		end									
+		if didnotsay[v] == nil and a ~= lplr then
+			--local ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
+			ab = true
+			if a and ab and didnotsay[v] == nil then
+				didnotsay[v] = true
+				repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().Name.." "..clients.ChatStrings2.Galaxy, "All")
+			end									
 		end
 	end
 end)
 
 local tab = {}
-							
+
 lplr.PlayerGui:WaitForChild("Chat").Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.ChildAdded:Connect(function(text)
 	local textlabel2 = text:WaitForChild("TextLabel")
 	if Functions.IsSpecialIngame() ~= "DEFAULT" then
