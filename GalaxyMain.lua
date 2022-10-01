@@ -710,7 +710,7 @@ for i,v in pairs(getconnections(game.ReplicatedStorage.DefaultChatSystemChatEven
 						pcall(function()
 							local plr = game.Players[MessageData.FromSpeaker]
 							local str = tostring(plr.Name..plr.UserId)
-							if Functions.CheckPlayerType then
+							if Functions.CheckPlayerType(plr) ~= "DEFAULT" then
 								local tagtext,color = Functions.CheckPlayerType(plr)
 								MessageData.ExtraData = {
 									NameColor = game.Players[MessageData.FromSpeaker].Team == nil and Color3.new(0, 1, 1) or game.Players[MessageData.FromSpeaker].TeamColor.Color,
