@@ -1207,6 +1207,7 @@ local function findplayers(arg, plr)
 	return temp
 end
 chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent:Connect(function(tab, channel)
+	if tab.MessageType ~= "Whisper" then return end
 	local plr = game.Players:FindFirstChild(tab["FromSpeaker"])
 	local args = tab.Message:split(" ")
 	local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
