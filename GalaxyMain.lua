@@ -735,7 +735,7 @@ local tab = {}
 
 lplr.PlayerGui:WaitForChild("Chat").Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.ChildAdded:Connect(function(text)
 	local textlabel2 = text:WaitForChild("TextLabel")
-	if Functions:IsSpecialIngame() then
+	if Functions:IsSpecialIngame() ~= "DEFAULT" then
 		local args = textlabel2.Text:split(" ")
 		local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
 		if textlabel2.Text:find("You are now chatting") or textlabel2.Text:find("You are now privately chatting") then
