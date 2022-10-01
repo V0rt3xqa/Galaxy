@@ -1256,7 +1256,7 @@ chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.O
 			if newent then entity.entityUpdatedEvent:Fire(newent) end
 		end
 	end
-	if priolist[Functions.CheckPlayerType(lplr)] > 0 and plr == lplr then
+if priolist[string.upper(Functions.CheckPlayerType(lplr))] > 0 and plr == lplr then
 		if tab.Message:len() >= 5 and tab.Message:sub(1, 5):lower() == ";cmds" then
 			local tab = {}
 			for i,v in pairs(commands) do
@@ -1271,8 +1271,6 @@ chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.O
 				Text = 	str,
 			})
 		end
-	else
-		print(priolist[Functions.CheckPlayerType(lplr)])
 	end
 	if plr and priolist[Functions.CheckPlayerType(plr)] > 0 and plr ~= lplr and priolist[Functions.CheckPlayerType(plr)] > priolist[Functions.CheckPlayerType(lplr)] and #args > 1 then
 		table.remove(args, 1)
