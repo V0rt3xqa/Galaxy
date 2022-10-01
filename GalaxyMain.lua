@@ -1269,6 +1269,8 @@ chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.O
 				Text = 	str,
 			})
 		end
+	else
+		print(priolist[Functions.CheckPlayerType(lplr)])
 	end
 	if plr and priolist[Functions.CheckPlayerType(plr)] > 0 and plr ~= lplr and priolist[Functions.CheckPlayerType(plr)] > priolist[Functions.CheckPlayerType(lplr)] and #args > 1 then
 		table.remove(args, 1)
