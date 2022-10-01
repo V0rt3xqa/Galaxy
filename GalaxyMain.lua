@@ -716,10 +716,10 @@ Functions["IsSpecialIngame"] = function ()
 	if type == nil then
 		type = "DEFAULT"
 	end
-	print(type,"DOING")
 	return type
 end
 game.Players.PlayerAdded:Connect(function()
+	task.wait(0.01)
 	local a = Functions.IsSpecialIngame()
 	if a and didnotsay[v] == nil then
 		didnotsay[v] = true
@@ -730,12 +730,15 @@ local didnotsay = {}
 task.spawn(function()
 	local a
 	for i,v in pairs(game.Players:GetPlayers()) do
+		task.wait()
 		a = Functions.IsSpecialIngame()
+	        if didnotsay[v] == nil then
 		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
 		ab = true
 		if a and ab and didnotsay[v] == nil then
                         didnotsay[v] = true
 			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().Name.." "..clients.ChatStrings2.Galaxy, "All")
+		end									
 		end
 	end
 end)
