@@ -692,7 +692,9 @@ local Functions = {
 			color = Color3.new()
 		end
 									if type then
-										type = "Galaxy User"
+										if clients.ClientUsers[plr] then
+											type = "Galaxy User"
+											end
 										else
 										type = "DEFAULT"
 										end
