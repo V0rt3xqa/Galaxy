@@ -708,12 +708,15 @@ Functions["IsSpecialIngame"] = function ()
 			type = v
 		end
 	end
+	if type == nil then
+		type = "DEFAULT"
+	end
 	return type
 end
 game.Players.PlayerAdded:Connect(function()
 	local a = Functions:IsSpecialIngame()
 	if a then
-		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.." "..clients.ChatStrings2.Galaxy, "All")
+		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.Name.." "..clients.ChatStrings2.Galaxy, "All")
 	end								
 end)
 task.spawn(function()
