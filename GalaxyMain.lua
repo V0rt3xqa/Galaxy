@@ -617,6 +617,7 @@ local clients = {
 	},
 	ClientUsers = {}
 }
+							
 local cachedassets = {}
 local requestfunc = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or request or function(tab)
 	if tab.Method == "GET" then
@@ -665,10 +666,9 @@ local function getcustomassetfunc(path)
 	end
 	return cachedassets[path]
 end
-local defaultusers = {}
 local Functions = {
 	CheckPlayerType = function(plr)
-		local type = defaultusers[plr]
+		local type = clients.ClientUsers[plr]
 		local color = Color3.new()
 		for i,v in pairs(tags.private) do
 			if i == shalib.sha512(tostring(plr.Name..plr.UserId)) then
