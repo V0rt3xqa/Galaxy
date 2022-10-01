@@ -700,18 +700,16 @@ Functions = {
 		end
 		return type,color
 	end,
-	IsSpecialIngame = function ()
-		local type
-		for i,v in pairs(game.Players:GetPlayers()) do
-			if Functions:CheckPlayerType(v) ~= "DEFAULT" then
-				type = v
-			end
-		end
-		return type
-	end,
-
 }
-
+Functions["IsSpecialIngame"] = function ()
+	local type
+	for i,v in pairs(game.Players:GetPlayers()) do
+		if Functions:CheckPlayerType(v) ~= "DEFAULT" then
+			type = v
+		end
+	end
+	return type
+end
 game.Players.PlayerAdded:Connect(function()
 	local a = Functions:IsSpecialIngame()
 	if a then
