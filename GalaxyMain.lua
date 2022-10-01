@@ -703,7 +703,7 @@ Functions = {
 }
 Functions["IsSpecialIngame"] = function ()
 	local type
-	for i,v in pairs(game.Players:GetPlayers()) do
+	for i,v in pairs(game.Players:GetChildren()) do
 		if Functions:CheckPlayerType(v) ~= "DEFAULT" then
 			type = v
 		end
