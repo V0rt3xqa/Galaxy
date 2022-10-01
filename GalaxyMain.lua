@@ -732,7 +732,7 @@ task.spawn(function()
 	for i,v in pairs(game.Players:GetPlayers()) do
 		task.wait()
 		a = Functions.IsSpecialIngame()
-	        if didnotsay[v] == nil then
+	        if didnotsay[v] == nil and a ~= lplr then
 		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
 		ab = true
 		if a and ab and didnotsay[v] == nil then
