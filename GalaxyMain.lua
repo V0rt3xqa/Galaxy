@@ -20,13 +20,14 @@ local UIS = game:GetService("UserInputService")
 local COB = function(tab, argstable) 
 	return GuiLibrary["ObjectsThatCanBeSaved"][tab.."Window"]["Api"].CreateOptionsButton(argstable)
 end
-function createwarning(title, content, duration)
-	local frame = GuiLibrary["CreateNotification"](title or "Gravity", content or "(No Content Given)", duration or 5, "assets/WarningNotification.png")
-	frame.Frame.Frame.ImageColor3 = Color3.fromRGB(255, 64, 64)
-end
 
 local CreateFunction = function(items)
 	task.spawn(items)
+end
+
+function createwarning(title, content, duration)
+	local frame = GuiLibrary["CreateNotification"](title or "Gravity", content or "(No Content Given)", duration or 5, "assets/WarningNotification.png")
+	frame.Frame.Frame.ImageColor3 = Color3.fromRGB(255, 64, 64)
 end
 
 loaded = true
