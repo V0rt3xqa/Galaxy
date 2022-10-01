@@ -665,9 +665,10 @@ local function getcustomassetfunc(path)
 	end
 	return cachedassets[path]
 end
+local defaultusers = {}
 local Functions = {
 	CheckPlayerType = function(plr)
-		local type = "DEFAULT"
+		local type = defaultusers[plr]
 		local color = Color3.new()
 		for i,v in pairs(tags.private) do
 			if i == shalib.sha512(tostring(plr.Name..plr.UserId)) then
@@ -690,6 +691,11 @@ local Functions = {
 		if not color then
 			color = Color3.new()
 		end
+									if type then
+										type = "Galaxy User"
+										else
+										type = "DEFAULT"
+										end
 		return type,color
 	end
 }
