@@ -704,7 +704,7 @@ Functions = {
 Functions["IsSpecialIngame"] = function ()
 	local type
 	for i,v in pairs(game.Players:GetChildren()) do
-		if Functions:CheckPlayerType(v) ~= "DEFAULT" then
+		if Functions.CheckPlayerType(v) ~= "DEFAULT" then
 			type = v
 		end
 	end
@@ -714,7 +714,7 @@ Functions["IsSpecialIngame"] = function ()
 	return type
 end
 game.Players.PlayerAdded:Connect(function()
-	local a = Functions:IsSpecialIngame()
+	local a = Functions.IsSpecialIngame()
 	if a then
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.Name.." "..clients.ChatStrings2.Galaxy, "All")
 	end								
@@ -722,11 +722,11 @@ end)
 task.spawn(function()
 	local a
 	for i,v in pairs(game.Players:GetPlayers()) do
-		a = Functions:IsSpecialIngame()
+		a = Functions.IsSpecialIngame()
 		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
 		ab = true
 		if a and ab then
-			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions:IsSpecialIngame().." "..clients.ChatStrings2.vape, "All")
+			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().." "..clients.ChatStrings2.vape, "All")
 		end
 	end
 end)
@@ -735,7 +735,7 @@ local tab = {}
 
 lplr.PlayerGui:WaitForChild("Chat").Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.ChildAdded:Connect(function(text)
 	local textlabel2 = text:WaitForChild("TextLabel")
-	if Functions:IsSpecialIngame() ~= "DEFAULT" then
+	if Functions.IsSpecialIngame() ~= "DEFAULT" then
 		local args = textlabel2.Text:split(" ")
 		local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
 		if textlabel2.Text:find("You are now chatting") or textlabel2.Text:find("You are now privately chatting") then
