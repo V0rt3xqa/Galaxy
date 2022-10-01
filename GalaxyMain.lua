@@ -722,7 +722,9 @@ task.spawn(function()
 	local a
 	for i,v in pairs(game.Players:GetPlayers()) do
 		a = Functions:IsSpecialIngame()
-		if a and Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User") then
+		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
+		ab = true
+		if a and ab then
 			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions:IsSpecialIngame().." "..clients.ChatStrings2.vape, "All")
 		end
 	end
