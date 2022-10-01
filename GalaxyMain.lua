@@ -727,7 +727,7 @@ task.spawn(function()
 		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
 		ab = true
 		if a and ab then
-			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().." "..clients.ChatStrings2.vape, "All")
+			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().Name.." "..clients.ChatStrings2.vape, "All")
 		end
 	end
 end)
