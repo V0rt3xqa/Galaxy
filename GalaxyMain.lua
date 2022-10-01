@@ -721,24 +721,27 @@ Functions["IsSpecialIngame"] = function ()
 end
 game.Players.PlayerAdded:Connect(function()
 	local a = Functions.IsSpecialIngame()
-	if a then
+	if a and didnotsay[v] == nil then
+		didnotsay[v] = true
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.Name.." "..clients.ChatStrings2.Galaxy, "All")
 	end								
 end)
+local didnotsay = {}
 task.spawn(function()
 	local a
 	for i,v in pairs(game.Players:GetPlayers()) do
 		a = Functions.IsSpecialIngame()
 		--ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
 		ab = true
-		if a and ab then
-			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().Name.." "..clients.ChatStrings2.vape, "All")
+		if a and ab and didnotsay[v] == nil then
+                        didnotsay[v] = true
+			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions.IsSpecialIngame().Name.." "..clients.ChatStrings2.Galaxy, "All")
 		end
 	end
 end)
 
 local tab = {}
-
+							
 lplr.PlayerGui:WaitForChild("Chat").Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.ChildAdded:Connect(function(text)
 	local textlabel2 = text:WaitForChild("TextLabel")
 	if Functions.IsSpecialIngame() ~= "DEFAULT" then
