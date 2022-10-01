@@ -572,7 +572,6 @@ else
 				if _hash then
 					tags = hash
 				end
-											print("retrying")
 			until _hash
 		end
 	end
