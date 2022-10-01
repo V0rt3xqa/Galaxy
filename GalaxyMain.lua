@@ -572,7 +572,7 @@ else
 				if _hash then
 					tags = hash
 				end
-											print("retrying")
+				print("retrying")
 			until _hash
 		end
 	end
@@ -616,8 +616,7 @@ local clients = {
 		["Galaxy"] = "GalaxyC345CDAGH",
 	},
 	ClientUsers = {}
-}
-							
+}					
 local cachedassets = {}
 local requestfunc = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or request or function(tab)
 	if tab.Method == "GET" then
@@ -666,7 +665,8 @@ local function getcustomassetfunc(path)
 	end
 	return cachedassets[path]
 end
-local Functions = {
+local Functions
+Functions = {
 	CheckPlayerType = function(plr)
 		local type = clients.ClientUsers[plr]
 		local color = Color3.new()
@@ -691,16 +691,84 @@ local Functions = {
 		if not color then
 			color = Color3.new()
 		end
-									if type then
-										if clients.ClientUsers[plr] then
-											type = "Galaxy User"
-											end
-										else
-										type = "DEFAULT"
-										end
+		if type then
+			if clients.ClientUsers[plr] then
+				type = "Galaxy User"
+			end
+		else
+			type = "DEFAULT"
+		end
 		return type,color
-	end
+	end,
+	IsSpecialIngame = function ()
+		local type
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if Functions:CheckPlayerType(v) ~= "DEFAULT" then
+				type = v
+			end
+		end
+		return type
+	end,
+
 }
+
+game.Players.PlayerAdded:Connect(function()
+	local a = Functions:IsSpecialIngame()
+	if a then
+		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.." "..clients.ChatStrings2.Galaxy, "All")
+	end								
+end)
+task.spawn(function()
+	local a
+	for i,v in pairs(game.Players:GetPlayers()) do
+		a = Functions:IsSpecialIngame()
+		if a and Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User") then
+			repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..Functions:IsSpecialIngame().." "..clients.ChatStrings2.vape, "All")
+		end
+	end
+end)
+
+local tab = {}
+
+lplr.PlayerGui:WaitForChild("Chat").Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.ChildAdded:Connect(function(text)
+	local textlabel2 = text:WaitForChild("TextLabel")
+	if Functions:IsSpecialIngame() then
+		local args = textlabel2.Text:split(" ")
+		local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
+		if textlabel2.Text:find("You are now chatting") or textlabel2.Text:find("You are now privately chatting") then
+			text.Size = UDim2.new(0, 0, 0, 0)
+			text:GetPropertyChangedSignal("Size"):Connect(function()
+				text.Size = UDim2.new(0, 0, 0, 0)
+			end)
+		end
+		if client then
+			if textlabel2.Text:find(clients.ChatStrings2[client]) then
+				text.Size = UDim2.new(0, 0, 0, 0)
+				text:GetPropertyChangedSignal("Size"):Connect(function()
+					text.Size = UDim2.new(0, 0, 0, 0)
+				end)
+			end
+		end
+		textlabel2:GetPropertyChangedSignal("Text"):Connect(function()
+			local args = textlabel2.Text:split(" ")
+			local client = clients.ChatStrings1[#args > 0 and args[#args] or tab.Message]
+			if textlabel2.Text:find("You are now chatting") or textlabel2.Text:find("You are now privately chatting") then
+				text.Size = UDim2.new(0, 0, 0, 0)
+				text:GetPropertyChangedSignal("Size"):Connect(function()
+					text.Size = UDim2.new(0, 0, 0, 0)
+				end)
+			end
+			if client then
+				if textlabel2.Text:find(clients.ChatStrings2[client]) then
+					text.Size = UDim2.new(0, 0, 0, 0)
+					text:GetPropertyChangedSignal("Size"):Connect(function()
+						text.Size = UDim2.new(0, 0, 0, 0)
+					end)
+				end
+			end
+		end)
+	end
+end)		
 
 for i,v in pairs(getconnections(game.ReplicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
 	if v.Function and #debug.getupvalues(v.Function) > 0 and type(debug.getupvalues(v.Function)[1]) == "table" and getmetatable(debug.getupvalues(v.Function)[1]) and getmetatable(debug.getupvalues(v.Function)[1]).GetChannel then
@@ -1160,7 +1228,7 @@ chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.O
 				end
 			end)
 		end)
-		--createwarning("Vape", plr.Name.." is using "..client.."!", 60)
+		createwarning("Vape", plr.Name.." is using "..client.."!", 60)
 		clients.ClientUsers[plr.Name] = client:upper()..' USER'
 		local ind, newent = entity.getEntityFromPlayer(plr)
 		if newent then entity.entityUpdatedEvent:Fire(newent) end
