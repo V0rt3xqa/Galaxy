@@ -1,4 +1,4 @@
--- Public Custom Capybara Modules By Azura Client Private --
+-- Dnut
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until shared.GuiLibrary
 local GuiLibrary = shared.GuiLibrary
@@ -53,7 +53,7 @@ local AnticheatDisabler = COB("World", {
     Name = "UltraFPSBoost",
     Function = function(callback) 
         if callback then
-        local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+        local decalsyeeted = true 
 local g = game
 local w = g.Workspace
 local l = g.Lighting
@@ -117,7 +117,7 @@ local AnticheatDisabler = COB("Blatant", {
   for i, v in pairs(game:GetService("Players"):GetChildren()) do
         if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Team ~= game.Players.LocalPlayer.Team then
             print(v.Name)
-            repeat wait(0.2)
+            repeat wait(0.11)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
             until v.Character.Humanoid.Health == 0 or not v.Character:FindFirstChild("Humanoid")
         end
