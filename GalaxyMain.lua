@@ -727,7 +727,7 @@ local didnotsay = {}
 game.Players.PlayerAdded:Connect(function(v)
 	task.wait(0.01)
 	local a = Functions.IsSpecialIngame()
-	if a and didnotsay[v] == nil then
+	if a and didnotsay[v] == nil and a ~= lplr then
 		didnotsay[v] = true
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..a.Name.." "..clients.ChatStrings2.Galaxy, "All")
 	end								
