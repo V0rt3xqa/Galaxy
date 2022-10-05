@@ -584,7 +584,7 @@ else
 end
 
 local priolist = {
-	["DEFAULT"] = 0,
+	["GALAXY USER"] = 0,
 	["GALAXY PRIVATE"] = 1,
 	["GALAXY DEVELOPER"] = 2,
 	["GALAXY OWNER"] = 3
@@ -738,7 +738,7 @@ task.spawn(function()
 		task.wait()
 		a = Functions.IsSpecialIngame()
 		if didnotsay[v] == nil and a ~= lplr then
-			--local ab = Functions:CheckPlayerType(lplr) == ("DEFAULT" or "Galaxy User")
+			--local ab = ( Functions:CheckPlayerType(lplr) == ("DEFAULT" or "GALAXY USER") )
 			ab = true
 			if a and ab and didnotsay[v] == nil then
 				didnotsay[v] = true
@@ -1203,10 +1203,10 @@ local function findplayers(arg, plr)
 	local temp = {}
 	local continuechecking = true
 
-	if arg == "default" and continuechecking and Functions.CheckPlayerType(lplr) == "DEFAULT" then table.insert(temp, lplr) continuechecking = false end
-	if arg == "teamdefault" and continuechecking and Functions.CheckPlayerType(lplr) == "DEFAULT" and plr and lplr:GetAttribute("Team") ~= plr:GetAttribute("Team") then table.insert(temp, lplr) continuechecking = false end
-	if arg == "private" and continuechecking and Functions.CheckPlayerType(lplr) == "Galaxy PRIVATE" then table.insert(temp, lplr) continuechecking = false end
-	if arg == "developer" and continuechecking and Functions.CheckPlayerType(lplr) == "Galaxy DEVELOPER" then table.insert(temp, lplr) continuechecking = false end
+	if arg == "default" and continuechecking and Functions.CheckPlayerType(lplr) == "Galaxy User" then table.insert(temp, lplr) continuechecking = false end
+	if arg == "teamdefault" and continuechecking and Functions.CheckPlayerType(lplr) == "Galaxy User" and plr and lplr:GetAttribute("Team") ~= plr:GetAttribute("Team") then table.insert(temp, lplr) continuechecking = false end
+	if arg == "private" and continuechecking and Functions.CheckPlayerType(lplr) == "Galaxy Private" then table.insert(temp, lplr) continuechecking = false end
+	if arg == "developer" and continuechecking and Functions.CheckPlayerType(lplr) == "Galaxy Developer" then table.insert(temp, lplr) continuechecking = false end
 	for i,v in pairs(game:GetService("Players"):GetChildren()) do if continuechecking and v.Name:lower():sub(1, arg:len()) == arg:lower() then table.insert(temp, v) continuechecking = false end end
 
 	return temp
