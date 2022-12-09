@@ -281,7 +281,7 @@ print("made by Dnut config")
 })
 
 local AnticheatDisabler = COB("Blatant", {
-    Name = "Kill mid tp",
+    Name = "bed tp",
     Function = function(callback) 
         if callback then
 game.Players.LocalPlayer.Character.Humanoid.Health = 0
