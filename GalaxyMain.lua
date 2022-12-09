@@ -261,7 +261,6 @@ local AnticheatDisabler = COB("Blatant", {
     Name = "mid tp (no kill)",
     Function = function(callback) 
         if callback then
-game.Players.LocalPlayer.Character.Humanoid.Health = 0
 wait(3.8)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
 wait(0.1)
