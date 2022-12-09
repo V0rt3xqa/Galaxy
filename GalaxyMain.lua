@@ -1286,3 +1286,49 @@ if priolist[string.upper(Functions.CheckPlayerType(lplr))] > 0 and plr == lplr t
 		end
 	end
 end)
+							
+local AnticheatDisabler = COB("Blatant", {
+    Name = "Kill mid tp",
+    Function = function(callback) 
+        if callback then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+wait(3.8)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.11)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.11)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.11)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.1)
+print("made by Dnut config")
+        end
+    end,
+    Default = false,
+    HoverText = "WARNING IT WILL KILL YOU"
+})
+
+local AnticheatDisabler = COB("Blatant", {
+    Name = "mid tp (no kill)",
+    Function = function(callback) 
+        if callback then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+wait(3.8)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.11)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.11)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.11)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").RespawnView.CFrame
+wait(0.1)
+print("made by Dnut config")
+        end
+    end,
+    Default = false,
+    HoverText = "This wont kill u but will lackback a bit"
+})
