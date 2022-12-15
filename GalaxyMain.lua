@@ -380,7 +380,7 @@ task.spawn(function()
 end)
 local _Autowin
 local AnticheatDisabler = COB("Blatant", {
-	Name = "2v2 AutoWinBeta",
+	Name = "2v2 AutoWinBeta (red)",
 	Function = function(callback) 
 		if callback then
 game.Players.LocalPlayer.Character.Humanoid.Health = 0
@@ -402,7 +402,36 @@ wait(5)
 		end
 	end,
 	Default = false,
-	HoverText = "still in beta and only works on one team"
+	HoverText = "Use if red team"
+})
+_Autowin = AnticheatDisabler
+								
+local _Autowin
+local AnticheatDisabler = COB("Blatant", {
+	Name = "2v2 AutoWinBeta (blue)",
+	Function = function(callback) 
+		if callback then
+Workspace.bed:Destroy()
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+									wait(3.8)
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").bed.CFrame
+                wait(0.01)
+                lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = lplr.Character:FindFirstChild("HumanoidRootPart").CFrame + Vector3.new(0,5,0)
+wait(0.2)									
+
+wait(5)
+			for i, v in pairs(game:GetService("Players"):GetChildren()) do
+				if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Team ~= game.Players.LocalPlayer.Team then
+					repeat task.wait(0.11)
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+					until v.Character.Humanoid.Health == 0 or not v.Character:FindFirstChild("Humanoid")
+				end
+			end
+			_Autowin["ToggleButton"](false)
+		end
+	end,
+	Default = false,
+	HoverText = "Use if blue team"
 })
 _Autowin = AnticheatDisabler
 
