@@ -383,8 +383,6 @@ local AnticheatDisabler = COB("Blatant", {
 	Name = "2v2 AutoWinBeta",
 	Function = function(callback) 
 		if callback then
-			game.Players.LocalPlayer.Character.Humanoid.Health = 0
-				wait(3.8)
       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").bed.CFrame
                 wait(0.01)
                 lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = lplr.Character:FindFirstChild("HumanoidRootPart").CFrame + Vector3.new(0,5,0)
