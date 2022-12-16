@@ -1,8 +1,8 @@
 -- dnut
-game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "VERSION | V1", Color = Color3.fromRGB(255, 165, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
+game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "VERSION | v1", Color = Color3.fromRGB(255, 165, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
 game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "[Dnut] Update Log:", Color = Color3.fromRGB(0, 255, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
 game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "[Dnut] Added this useless chat stuff", Color = Color3.fromRGB(255, 165, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
-game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "[Dnut] Credits", Color = Color3.fromRGB(0, 255, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
+game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "[Dnut] Credits", Color = Color3.fromRGB(0, 255, 0)), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
 game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "[Dnut] Gigachad hacker man and ILOVEVXPEFORLIFE for making the script", Color = Color3.fromRGB(255, 165, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
 game.StarterGui:SetCore("ChatMakeSystemMessage",  { Text = "[Dnut] $.lucid for random chat thing", Color = Color3.fromRGB(255, 165, 0), Font = Enum.Font.SourceSansBold, FontSize = Enum.FontSize.Size24 } )
 
