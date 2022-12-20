@@ -2,7 +2,7 @@ a = pcall(function()
       if shared.GalaxyLoaded then
          error("Already loaded!")
          else
-          loadstring(game:HttpGet("https://raw.githubusercontent.com/V0rt3xqa/Galaxy/main/GalaxyMain.lua"))()
+          loadstring(game:HttpGet("https://pastebin.com/raw/iLhqHqwv"))()
        end
             print(shared.GalaxyLoaded)
 end)
@@ -19,5 +19,5 @@ callback = game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(b)
         end)
             error("Galaxy already loaded")
       end
-      a("loadstring(game:HttpGet('https://raw.githubusercontent.com/V0rt3xqa/Galaxy/main/Loadstring.lua'))()")
+      a("https://pastebin.com/raw/iLhqHqwv'))()")
 end end)
