@@ -223,6 +223,35 @@ local AnticheatDisabler = COB("World", {
 	HoverText = "Old Stud Antivoid"
 })
 
+	runcode(function()
+local v1 = false
+local v5 = {["Value"] = 14}
+	tpstrafe = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
+		["Name"] = "tpstrafe",
+		["Function"] = function(callback)
+			if callback then
+			    	for i,v in pairs(game.Players:GetChildren()) do
+		if v.Character and v.Name ~= game.Players.LocalPlayer.Name and v.Character:FindFirstChild("HumanoidRootPart") then
+			local v2 = (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+			if v2 <= v5["Value"] and v.Team ~= game.Players.LocalPlayer.Team and v.Character:FindFirstChild("Humanoid") then
+				if v.Character.Humanoid.Health > 0 then
+					v1 = true
+workspace.Gravity = 0
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame+Vector3.new(0,20,0)
+wait(0.31)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,-20,0)
+print("hi")
+workspace.Gravity = 192
+end
+end
+end
+end
+end
+			end
+		end,
+		["HoverText"] = "tp away from players then tp back to avoid being hit"
+	})
+	
 local AnticheatDisabler = COB("Blatant", {
 	Name = "Infinite Jump",
 	Function = function(callback) 
